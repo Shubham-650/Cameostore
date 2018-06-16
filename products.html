@@ -1,0 +1,164 @@
+<html>
+    <head>
+         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+        <script type="text/javascript" src="bootstrap/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Cameostore</title>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top"> 
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span> 
+                    </button>
+                           
+                    <a class="navbar-brand" href="index.html"><span class = "glyphicon glyphicon-camera"></span><i> Cameostore</i></a>
+                </div> 
+                <div class="collapse navbar-collapse" id="myNavbar"> 
+                    <ul class="nav navbar-nav navbar-right"> 
+                        <li><a href = "products.html"><span class = "glyphicon glyphicon-tags"></span> Product </a></li>
+                        <li><a href = "cart.html"><span class = "glyphicon glyphicon-shopping-cart"></span> Cart </a></li>
+                    </ul> 
+                </div>
+            
+            </div>
+        </div>
+        <div class="container">
+            <div class="jumbotron jumbo">
+                <h1>Welcome to our Cameostore!</h1>
+                <p>We have the best cameras for you in one place.</p>
+                <button class="btn btn-primary btn-block" width="50px" onClick="camList()">Cameras</button>
+                <button class="btn btn-primary btn-block" width="50px" onClick="camRecordList()">Camrecorders</button>
+                <button class="btn btn-primary btn-block" width="50px" onClick="camAccessBat()">Camera Accessories Batteries</button>
+                <button class="btn btn-primary btn-block" width="50px" onClick="camAccessSelf()">Camera Accessories Selfie Flash</button>
+                <button class="btn btn-primary btn-block" width="50px" onClick="camInstant()">Camera Instant Cameras</button>
+            </div>
+            <div id="prod" class="row text-center" style="float:left ;overflow-x:hidden">
+               
+            </div>
+        </div>
+        <footer class="foot">
+                <div class="container"> 
+                    <center> 
+                        <p>Copyright &copy; Cameostore. All Rights Reserved | Contact Us: +91 90000 00000</p> 
+                    </center>
+                </div>
+        </footer>
+       
+                
+        
+    </body>
+    <script type="text/javascript">
+        var items=[];
+        var itemsInCart=JSON.parse(localStorage.getItem('itemsInCart')) || [];
+        function camList(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            items = JSON.parse(this.responseText);
+            addToPage(items);
+            }
+         };
+        xmlhttp.open("GET", `http://101.53.137.41/api/?cat=Electronics_Cameras&count=100&offset=0;`, true);
+        xmlhttp.send();
+        }
+        function camRecordList(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            items = JSON.parse(this.responseText);
+            addToPage(items);
+            }
+         };
+        xmlhttp.open("GET", `http://101.53.137.41/api/?cat=Electronics_Cameras_Camcorders&count=100&offset=0;`, true);
+        xmlhttp.send();
+        }
+        function camAccessBat(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            items = JSON.parse(this.responseText);
+            addToPage(items);
+            }
+         };
+        xmlhttp.open("GET", `http://101.53.137.41/api/?cat=Electronics_Cameras_CameraAccessories_Batteries&count=100&offset=0;`, true);
+        xmlhttp.send();
+        }
+        function camAccessSelf(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            items = JSON.parse(this.responseText);
+            addToPage(items);
+            }
+         };
+        xmlhttp.open("GET", `http://101.53.137.41/api/?cat=Electronics_Cameras_CameraAccessories_SelfieFlashes&count=100&offset=0;`, true);
+        xmlhttp.send();
+        }
+        function camInstant(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            items = JSON.parse(this.responseText);
+            addToPage(items);
+            }
+         };
+        xmlhttp.open("GET", `http://101.53.137.41/api/?cat=Electronics_Cameras_InstantCameras&count=100&offset=0;`, true);
+        xmlhttp.send();
+        }
+        function appendToLocal(id)
+        {
+            
+            itemsInCart.push(items[id]);
+            localStorage.setItem("itemsInCart", JSON.stringify(itemsInCart));
+            alert("Your Product Has Been Added");
+        }
+        function addToPage(itemAppend)
+        {
+            document.getElementById("prod").innerHTML="";
+            console.log(itemAppend)
+            var list=[];
+            var z=0;
+            Object.keys(itemAppend).forEach(function(key) {
+              list.push(itemAppend[key]);
+            });
+            list.map(function(item)
+            {
+                    var urlMul=item.imageUrlStr;
+                    var url=urlMul.split(';');
+                    var id=document.getElementById("prod");
+                    let div =document.createElement('div');
+                    div.setAttribute('class','sub');
+                    let p =document.createElement('p');
+                    let ti=item.title;
+                    p.innerText=ti.substr(0,40);
+                    let button=document.createElement('button');
+                    button.innerText="Add to Cart";
+                    button.setAttribute('class','btn btn-success btn-block');
+                    button.setAttribute('onClick',"appendToLocal(" + z + ")");
+                    let p1 =document.createElement('p');
+                    p1.innerText="MRP Rs :"+item.sellingPrice;
+                    div.setAttribute('class', 'col-md-4');
+                   // var idChild=document.getElementById("prodChild");
+                    let img =document.createElement('img');
+                    img.setAttribute('src', url[0]);
+                    img.setAttribute('width', '100px');
+                    img.setAttribute('height', '100px');
+                    div.appendChild(img);
+                    div.appendChild(p);
+                    div.appendChild(p1);
+                    div.appendChild(button);
+                    id.appendChild(div);
+                    z=z+1;
+                
+            })
+
+        }
+    </script>
+</html>

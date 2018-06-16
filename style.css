@@ -1,0 +1,70 @@
+#banner_image{
+    padding-top: 75px;
+    padding-bottom: 50px;
+    text-align: center;
+    color:#f8f8f8;
+    background: url(imag/intro-bg_1.jpg);
+    background-size:cover;
+}
+#banner_content{
+    position: relative;
+    padding-top: 6%;
+    padding-bottom: 6%;
+    margin-top: 12%;
+    margin-bottom: 12%;
+    background-color: rgba(0,0,0,0.7);
+    max-width:660px;
+    min-height:300px;
+  }
+  .foot{
+      padding:10px 0;
+      background-color:#101010;
+      color:#9d9d9d;
+      bottom:0;
+      width:100%;
+      position:relative;
+      bottom:0;
+     }
+      
+      
+  .sub
+  {
+    
+    border:3px solid black;
+    border-radius:6px;
+  }
+  .login{
+      position:relative;
+      padding-top:6%;
+      padding-bottom:14%;
+      align-items:center;
+      padding-left:30%;
+  }
+  .signup{
+      position:relative;
+      padding-top:5%;
+      align-items:center;
+      padding-bottom:11%;
+      padding-left:30%;
+  }
+  .jumbo{
+      margin:80px 0;
+  }
+  .tab{
+      margin:100px 0;
+      padding-bottom: 50%;
+  }
+  .set{
+      position:relative;
+      padding-top:5%;
+      align-items:center;
+      padding-bottom:22%;
+      padding-left:30%;
+  }
+  .suc{
+      position:relative;
+      padding-top:5%;
+      padding-bottom:21%;
+      height:30%;
+      
+  }
